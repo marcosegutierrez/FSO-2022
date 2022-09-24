@@ -13,17 +13,21 @@ const Statistics = ({stats}) => {
   let avg = (good - bad) / all;
   let positive = good / all * 100;
 
-  if (all === 0) avg = 0;
-  if (good === 0) positive = 0;
-
+  if (all !== 0) {
+    return (
+      <>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all {all}</p>
+        <p>average {avg}</p>
+        <p>positive {positive}%</p>
+      </>
+    )
+  }  
   return (
     <>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {avg}</p>
-      <p>positive {positive}%</p>
+      <p>No feedback given</p>
     </>
   )
 }
