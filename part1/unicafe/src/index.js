@@ -16,12 +16,12 @@ const Statistics = ({stats}) => {
   if (all !== 0) {
     return (
       <>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all}</p>
-        <p>average {avg}</p>
-        <p>positive {positive}%</p>
+        <Statistic text="good" stats={good} />
+        <Statistic text="neutral" stats={neutral} />
+        <Statistic text="bad" stats={bad} />
+        <Statistic text="all" stats={all} />
+        <Statistic text="average" stats={avg} />
+        <Statistic text="positive" stats={positive} alt="%"/>
       </>
     )
   }  
@@ -29,6 +29,12 @@ const Statistics = ({stats}) => {
     <>
       <p>No feedback given</p>
     </>
+  )
+}
+
+const Statistic = (props) => {
+  return (
+    <><p>{props.text} {props.stats} {props.alt}</p></>
   )
 }
 
@@ -66,7 +72,6 @@ const App = () => {
     setStats(newStats);
   }
 
-  // console.log(all.all);
   return (
     <>
       <h1>Give feedback</h1>
