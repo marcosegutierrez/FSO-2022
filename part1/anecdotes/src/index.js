@@ -4,6 +4,8 @@ import './index.css';
 
 const App = () => {
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 })
+
   const anecdotes = [
     'If it hurts, do it more often',
     'Adding manpower to a late software project makes it later!',
@@ -18,10 +20,18 @@ const App = () => {
     setSelected(newSelected)
   }
 
+  const handleSetPoints = () => {
+    const copy = { ...points }
+    copy[selected] += 1
+    setPoints(copy)
+
+  }
+
   return (
     <>
     {anecdotes[selected]}
-    <br/>
+    <p>Has {points[selected]} votes.</p>
+    <button onClick={handleSetPoints}> Vote </button>
     <button onClick={handleSetSelected}> Next anecdote </button>
     </>
   )
