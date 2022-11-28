@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
-import {createRoot} from 'react-dom/client';
+import React, { useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css';
+
+const Display = ({ anecdotes, points, top }) => {
+  if (top !== null) {
+    return (
+      <>
+        {anecdotes[top]}
+        <p>Has {points[top]} votes.</p>
+      </>
+    )
+  }
+}
 
 const App = () => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 })
+  const [top, setTop] = useState(null)
 
   const anecdotes = [
     'If it hurts, do it more often',
@@ -24,15 +36,35 @@ const App = () => {
     const copy = { ...points }
     copy[selected] += 1
     setPoints(copy)
+    handleSetTop(copy)
+  }
 
+  const handleSetTop = (copy) => {
+    let major = topVotes(copy)
+    setTop(major)
+  }
+
+  const topVotes = (copy) => {
+    let major = 0
+    let pos = 0
+    for (let x in copy) {
+      if (copy[x] > major) {
+        major = copy[x]
+        pos = x
+      }
+    }
+    return pos
   }
 
   return (
     <>
-    {anecdotes[selected]}
-    <p>Has {points[selected]} votes.</p>
-    <button onClick={handleSetPoints}> Vote </button>
-    <button onClick={handleSetSelected}> Next anecdote </button>
+      <h1>Anecdote of the day</h1>
+      {anecdotes[selected]}
+      <p>Has {points[selected]} votes.</p>
+      <button onClick={handleSetPoints}> Vote </button>
+      <button onClick={handleSetSelected}> Next anecdote </button>
+      <h2>Anecdote with most votes</h2>
+      <Display anecdotes={anecdotes} top={top} points={points} />
     </>
   )
 }
@@ -40,5 +72,5 @@ const App = () => {
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 root.render(
-  <App />  
+  <App />
 );
