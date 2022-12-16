@@ -13,13 +13,8 @@ const Content = ({ parts }) =>
   </>
 
 const Total = ({ parts }) => {
-    let total = 0
-    parts.map(part => (
-        total += part.exercises
-    ))
-
     return (
-        <b>Total of {total} exercises</b>
+        <b>Total of {parts.reduce((acum, part) => acum + part.exercises, 0)} exercises</b>
     )
 }
 
