@@ -13,14 +13,23 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
 
   const addPerson = (event) => {
+    let free = true
     event.preventDefault()
     const personObjet = {
       name: newName,
       id: persons.length + 1,
     }
 
-    if (newName !== '')
-      setPersons(persons.concat(personObjet))
+    if (newName !== ''){
+      persons.forEach(person => {
+        if (newName === person.name) {
+          alert(`${newName} is already added to phonebook`)
+          free = false
+        }
+      })
+      free ? setPersons(persons.concat(personObjet)) : free = true
+    } else
+      alert('Enter a name')
     setNewName('')
   }
 
